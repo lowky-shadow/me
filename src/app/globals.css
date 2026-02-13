@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* ── Shadow Garden Palette ── */
+  --color-shadow-950: #0b0c10;
+  --color-shadow-900: #111217;
+  --color-shadow-800: #181a22;
+  --color-shadow-700: #1f222e;
+  --color-shadow-600: #282c3a;
+  --color-shadow-500: #3a3f52;
+
+  --color-accent-violet: #6c5ce7;
+  --color-accent-indigo: #5b4fcf;
+  --color-accent-muted: #4a3fa0;
+  --color-accent-dim: #3d3480;
+
+  --color-moon-blue: #4a90b8;
+  --color-moon-glow: #5ba3d0;
+
+  --color-sakura-300: #d4a0b0;
+  --color-sakura-400: #b87d8f;
+
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #b8bcc8;
+  --color-text-muted: #8890a0;
+
+  --color-glass-bg: rgba(17, 18, 23, 0.6);
+  --color-glass-border: rgba(108, 92, 231, 0.12);
+}
+
+/* ── Base ── */
+@layer base {
+  * {
+    @apply border-glass-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply text-text-primary;
+    min-height: 100vh;
+    background: #0b0c10;
+    background-attachment: fixed;
+    line-height: 1.7;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    background: rgba(108, 92, 231, 0.25);
+    color: #f0f0f5;
+  }
+}
+
+/* ── Glass ── */
+.glass {
+  background: rgba(17, 18, 23, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(108, 92, 231, 0.06);
+}
+
+/* ── Glow utilities ── */
+.glow-sm {
+  box-shadow:
+    0 0 15px rgba(108, 92, 231, 0.08),
+    0 0 30px rgba(108, 92, 231, 0.04);
+}
+
+.glow-md {
+  box-shadow:
+    0 0 20px rgba(108, 92, 231, 0.1),
+    0 0 50px rgba(108, 92, 231, 0.06);
+}
+
+.glow-line {
+  box-shadow:
+    0 0 8px rgba(108, 92, 231, 0.12);
+}
+
+/* ── Typography ── */
+.heading-shadow {
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* Section subtitle — consistent across all sections */
+.subtitle-shadow {
+  font-size: 0.8125rem;
+  /* 13px */
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* Body text — editorial, readable */
+.body-shadow {
+  font-size: 0.9375rem;
+  /* 15px */
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  max-width: 65ch;
+  /* Optimal reading length */
+}
+
+/* Small detail text — meta, labels */
+.meta-shadow {
+  font-size: 0.6875rem;
+  /* 11px */
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* ── Subtle animated underline ── */
+.underline-hover {
+  position: relative;
+}
+
+.underline-hover::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: rgba(108, 92, 231, 0.5);
+  transition: width 0.6s ease-in-out;
+}
+
+.underline-hover:hover::after {
+  width: 100%;
+}
+
+/* ── Fog gradient ── */
+.fog-bottom {
+  background: linear-gradient(to top,
+      rgba(11, 12, 16, 0.95) 0%,
+      rgba(11, 12, 16, 0.6) 30%,
+      transparent 100%);
+}
+
+/* ── Section divider ── */
+.divider-shadow {
+  height: 1px;
+  background: linear-gradient(to right,
+      transparent,
+      rgba(108, 92, 231, 0.15),
+      transparent);
+}
