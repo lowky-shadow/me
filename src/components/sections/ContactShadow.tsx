@@ -83,7 +83,7 @@ export default function ContactShadow() {
             <button
               type="submit"
               disabled={submitted}
-              className="w-full rounded-none border border-glass-border bg-transparent px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] text-text-secondary transition-all duration-700 hover:border-accent-violet/25 hover:text-text-primary hover:glow-sm disabled:opacity-50"
+              className="w-full rounded-none border border-glass-border bg-transparent px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] text-text-secondary transition-all duration-700 hover:border-accent-violet/25 hover:text-text-primary hover-glow-sm disabled:opacity-50"
             >
               {submitted ? "Message Sent ✓" : "Send Message"}
             </button>

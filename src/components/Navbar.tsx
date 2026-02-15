@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const links = [
   { label: "Chronicle", href: "#chronicle" },
@@ -43,7 +44,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop */}
-          <div className="hidden gap-8 md:flex">
+          <div className="hidden gap-8 items-center md:flex">
             {links.map((l) => (
               <a
                 key={l.label}
@@ -53,15 +54,19 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
+            <ThemeToggle />
           </div>
 
-          <button
-            className="text-text-muted md:hidden"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          <div className="flex items-center gap-4 md:hidden">
+            <ThemeToggle />
+            <button
+              className="text-text-muted"
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+            >
+              {open ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 

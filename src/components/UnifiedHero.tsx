@@ -103,7 +103,7 @@ export default function UnifiedHero() {
           >
             <a
               href="#operations"
-              className="group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 sm:py-3 text-xs font-medium uppercase tracking-[0.2em] text-text-primary border border-glass-border transition-all duration-700 hover:border-accent-violet/40 hover:glow-sm hover:bg-white/5"
+              className="group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 sm:py-3 text-xs font-medium uppercase tracking-[0.2em] text-text-primary border border-glass-border transition-all duration-700 hover:border-accent-violet/40 hover-glow-sm hover:bg-shadow-800/30"
             >
               <span>Enter the Garden</span>
             </a>
