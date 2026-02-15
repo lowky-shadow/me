@@ -49,17 +49,17 @@ const highlights = [
 
 export default function UnifiedHero() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 py-24 lg:py-0">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-5 sm:px-6 pt-20 pb-12 lg:py-0">
       {/* Fog effect at bottom */}
       <div className="fog-bottom absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-0" />
 
-      <div className="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         
         {/* LEFT COLUMN: Narrative */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 order-2 lg:order-1">
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 sm:space-y-6 lg:space-y-8">
           {/* 1. Primary Title */}
           <motion.h1
-            className="heading-shadow text-5xl tracking-[0.2em] md:text-7xl lg:text-8xl text-text-primary"
+            className="heading-shadow text-4xl tracking-[0.15em] sm:text-5xl sm:tracking-[0.2em] md:text-7xl lg:text-8xl text-text-primary"
             {...slow(0.2)}
           >
             SHADOW
@@ -67,7 +67,7 @@ export default function UnifiedHero() {
 
           {/* 2. Short Tagline */}
           <motion.p
-            className="subtitle-shadow tracking-[0.2em] uppercase font-medium"
+            className="subtitle-shadow tracking-[0.12em] sm:tracking-[0.2em] uppercase font-medium text-[11px] sm:text-[13px]"
             {...slow(0.4)}
           >
             Full-Stack Developer &amp; Systems Architect
@@ -75,7 +75,7 @@ export default function UnifiedHero() {
 
           {/* Separator Line */}
           <motion.div
-             className="h-px w-12 bg-accent-violet/30 my-2 hidden lg:block"
+             className="h-px w-10 sm:w-12 bg-accent-violet/30 my-1 sm:my-2"
              initial={{ scaleX: 0, opacity: 0 }}
              animate={{ scaleX: 1, opacity: 1 }}
              transition={{ duration: 1.0, delay: 0.6 }}
@@ -83,7 +83,7 @@ export default function UnifiedHero() {
 
           {/* 3. Manifest Paragraph */}
           <motion.div 
-            className="space-y-4 body-shadow max-w-lg mx-auto lg:mx-0"
+            className="space-y-3 sm:space-y-4 body-shadow max-w-lg mx-auto lg:mx-0 text-sm sm:text-[0.9375rem]"
             {...slow(0.7)}
           >
             <p>
@@ -98,12 +98,12 @@ export default function UnifiedHero() {
 
           {/* 4. Primary CTA & Socials */}
           <motion.div 
-            className="flex flex-col items-center lg:items-start gap-6 mt-6"
+            className="flex flex-col items-center lg:items-start gap-4 sm:gap-6 mt-4 sm:mt-6 w-full sm:w-auto"
             {...slow(1.0)}
           >
             <a
               href="#operations"
-              className="group relative inline-flex items-center gap-2 px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-text-primary border border-glass-border transition-all duration-700 hover:border-accent-violet/40 hover:glow-sm hover:bg-white/5"
+              className="group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 sm:py-3 text-xs font-medium uppercase tracking-[0.2em] text-text-primary border border-glass-border transition-all duration-700 hover:border-accent-violet/40 hover:glow-sm hover:bg-white/5"
             >
               <span>Enter the Garden</span>
             </a>
@@ -127,20 +127,20 @@ export default function UnifiedHero() {
         </div>
 
         {/* RIGHT COLUMN: Evidence (Stats & Highlights) */}
-        <div className="flex flex-col gap-8 order-1 lg:order-2">
+        <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
           
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-4 sm:grid-cols-2 gap-2 sm:gap-4">
              {stats.map((s, i) => (
                 <motion.div
                   key={s.label}
-                  className="flex flex-col items-center justify-center rounded-sm border border-glass-border bg-shadow-900/40 py-4 px-3 text-center transition-colors hover:border-accent-violet/20"
+                  className="flex flex-col items-center justify-center rounded-sm border border-glass-border bg-shadow-900/40 py-3 px-2 sm:py-4 sm:px-3 text-center transition-colors hover:border-accent-violet/20"
                   {...slow(0.3 + i * 0.1)}
                 >
-                  <span className="text-xl font-bold text-text-primary mb-1">
+                  <span className="text-base sm:text-xl font-bold text-text-primary mb-0.5 sm:mb-1">
                     {s.value}
                   </span>
-                  <span className="meta-shadow text-[10px]">
+                  <span className="meta-shadow text-[8px] sm:text-[10px]">
                     {s.label}
                   </span>
                 </motion.div>
@@ -148,21 +148,21 @@ export default function UnifiedHero() {
           </div>
 
           {/* Highlights Stack */}
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
              {highlights.map((h, i) => (
                 <motion.div
                   key={h.title}
-                  className="group flex gap-4 rounded-sm border border-glass-border bg-shadow-900/20 p-4 transition-all duration-500 hover:border-accent-violet/20 hover:bg-shadow-800/40"
+                  className="group flex gap-3 sm:gap-4 rounded-sm border border-glass-border bg-shadow-900/20 p-3 sm:p-4 transition-all duration-500 hover:border-accent-violet/20 hover:bg-shadow-800/40"
                   {...slow(0.5 + i * 0.1)}
                 >
                   <div className="mt-1 text-text-muted group-hover:text-accent-violet transition-colors duration-500">
                     <h.icon size={18} />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-text-primary tracking-wide mb-1">
+                    <h3 className="text-[13px] sm:text-sm font-semibold text-text-primary tracking-wide mb-0.5 sm:mb-1">
                       {h.title}
                     </h3>
-                    <p className="text-[0.8125rem] leading-[1.6] text-text-muted">
+                    <p className="text-xs sm:text-[0.8125rem] leading-[1.5] sm:leading-[1.6] text-text-muted">
                       {h.text}
                     </p>
                   </div>
