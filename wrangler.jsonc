@@ -3,10 +3,6 @@
   "name": "me",
   "compatibility_date": "2026-03-01",
   "workers_dev": true,
-  "routes": [
-    { "pattern": "lowkeyshadow.me", "custom_domain": true },
-    { "pattern": "www.lowkeyshadow.me", "custom_domain": true }
-  ],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"
