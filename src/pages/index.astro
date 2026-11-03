@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Snowfall from "../components/Snowfall";
+import UnifiedHero from "../components/sections/UnifiedHero.astro";
+import Chronicle from "../components/sections/Chronicle.astro";
+import Operations from "../components/sections/Operations.astro";
+import Arsenal from "../components/sections/Arsenal.astro";
+import ContactShadow from "../components/sections/ContactShadow.astro";
+import Footer from "../components/sections/Footer.astro";
+---
+
+<Layout>
+  <Snowfall client:idle />
+  <Navbar />
+
+  <main class="relative z-10">
+    <UnifiedHero />
+    <Chronicle />
+    <Operations />
+    <Arsenal />
+    <ContactShadow />
+    <Footer />
+  </main>
+</Layout>

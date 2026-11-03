@@ -1,0 +1,177 @@
+---
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Briefcase,
+  GraduationCap,
+  Code2,
+  Globe,
+} from "lucide-react";
+
+const socials = [
+  { icon: Github, href: "https://github.com", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:shadow@example.com", label: "Email" },
+];
+
+const stats = [
+  { value: "3+", label: "Years Exp." },
+  { value: "20+", label: "Projects" },
+  { value: "50+", label: "Commits" },
+  { value: "5+", label: "Clients" },
+];
+
+const highlights = [
+  {
+    icon: Briefcase,
+    title: "Work Ready",
+    text: "Production-grade applications, agile teams, and shipping under deadlines.",
+  },
+  {
+    icon: Code2,
+    title: "Full Stack",
+    text: "End-to-end ownership — UI systems, API design, databases, and CI/CD.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Always Learning",
+    text: "Active contributor. Staying current with React, Node.js, and clouds.",
+  },
+  {
+    icon: Globe,
+    title: "Remote-First",
+    text: "Async-native. Clear documentation, proactive comms, consistent delivery.",
+  },
+];
+---
+
+<section
+  id="hero"
+  class="relative flex min-h-screen items-center justify-center px-5 pb-12 pt-20 sm:px-6 lg:py-0"
+>
+  <!-- Fog effect at bottom -->
+  <div class="fog-bottom pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32"></div>
+
+  <div
+    class="relative z-10 grid w-full max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16"
+  >
+    <!-- LEFT COLUMN: Narrative -->
+    <div
+      class="flex flex-col items-center space-y-5 text-center sm:space-y-6 lg:items-start lg:space-y-8 lg:text-left"
+    >
+      <h1
+        class="heading-shadow reveal reveal-delay-2 text-4xl tracking-[0.15em] text-text-primary sm:text-5xl sm:tracking-[0.2em] md:text-7xl lg:text-8xl"
+      >
+        SHADOW
+      </h1>
+
+      <p
+        class="subtitle-shadow reveal reveal-delay-4 text-[11px] font-medium uppercase tracking-[0.12em] sm:text-[13px] sm:tracking-[0.2em]"
+      >
+        Full-Stack Developer &amp; Systems Architect
+      </p>
+
+      <div
+        class="reveal-line reveal-delay-6 my-1 h-px w-10 bg-accent-violet/30 sm:my-2 sm:w-12"
+      >
+      </div>
+
+      <div
+        class="body-shadow reveal reveal-delay-7 mx-auto max-w-lg space-y-3 text-sm sm:space-y-4 sm:text-[0.9375rem] lg:mx-0"
+      >
+        <p>
+          Operating from the unseen. I build robust, scalable web applications
+          and backend systems that power modern digital experiences.
+        </p>
+        <p>
+          Focused on clean engineering, autonomy, and the silent precision of
+          well-crafted code.
+        </p>
+      </div>
+
+      <div
+        class="reveal reveal-delay-10 mt-4 flex w-full flex-col items-center gap-4 sm:mt-6 sm:w-auto sm:gap-6 lg:items-start"
+      >
+        <a
+          href="#operations"
+          class="hover-glow-sm group relative inline-flex w-full items-center justify-center gap-2 border border-glass-border px-8 py-3.5 text-xs font-medium uppercase tracking-[0.2em] text-text-primary transition-all duration-700 hover:border-accent-violet/40 hover:bg-shadow-800/30 sm:w-auto sm:py-3"
+        >
+          <span>Enter the Garden</span>
+        </a>
+
+        <div class="mt-2 flex gap-6">
+          {
+            socials.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-text-muted transition-colors duration-300 hover:text-text-primary"
+                  aria-label={social.label}
+                >
+                  <Icon size={18} strokeWidth={1.5} />
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Evidence (Stats & Highlights) -->
+    <div class="flex flex-col gap-5 sm:gap-6 lg:gap-8">
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-4 gap-2 sm:grid-cols-2 sm:gap-4">
+        {
+          stats.map((stat, index) => (
+            <div
+              class:list={[
+                "reveal flex flex-col items-center justify-center rounded-sm border border-glass-border bg-shadow-900/40 px-2 py-3 text-center transition-colors hover:border-accent-violet/20 sm:px-3 sm:py-4",
+                `reveal-delay-${Math.min(index + 3, 10)}`,
+              ]}
+            >
+              <span class="mb-0.5 text-base font-bold text-text-primary sm:mb-1 sm:text-xl">
+                {stat.value}
+              </span>
+              <span class="meta-shadow text-[8px] sm:text-[10px]">
+                {stat.label}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Highlights Stack -->
+      <div class="space-y-2 sm:space-y-3">
+        {
+          highlights.map((highlight, index) => {
+            const Icon = highlight.icon;
+            return (
+              <div
+                class:list={[
+                  "reveal group flex gap-3 rounded-sm border border-glass-border bg-shadow-900/20 p-3 transition-all duration-500 hover:border-accent-violet/20 hover:bg-shadow-800/40 sm:gap-4 sm:p-4",
+                  `reveal-delay-${Math.min(index + 5, 10)}`,
+                ]}
+              >
+                <div class="mt-1 text-text-muted transition-colors duration-500 group-hover:text-accent-violet">
+                  <Icon size={18} />
+                </div>
+                <div>
+                  <h3 class="mb-0.5 text-[13px] font-semibold tracking-wide text-text-primary sm:mb-1 sm:text-sm">
+                    {highlight.title}
+                  </h3>
+                  <p class="text-xs leading-[1.5] text-text-muted sm:text-[0.8125rem] sm:leading-[1.6]">
+                    {highlight.text}
+                  </p>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+</section>

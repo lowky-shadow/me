@@ -1,0 +1,115 @@
+---
+import { Github, Linkedin, Mail, Twitter, Copy } from "lucide-react";
+
+const directLinks = [
+  { icon: Mail, label: "shadow@example.com", href: "mailto:shadow@example.com" },
+  { icon: Linkedin, label: "linkedin.com/in/shadow", href: "https://linkedin.com" },
+  { icon: Github, label: "github.com/shadow", href: "https://github.com" },
+  { icon: Twitter, label: "@shadow", href: "https://twitter.com" },
+];
+
+const email = "shadow@example.com";
+---
+
+<section id="contact" class="px-6 py-16 md:py-24">
+  <div class="mx-auto max-w-4xl">
+    <h2
+      class="heading-shadow reveal mb-2 text-center text-base tracking-[0.3em] text-text-primary md:text-lg"
+    >
+      Contact
+    </h2>
+    <p class="subtitle-shadow reveal reveal-delay-1 mb-12 text-center">
+      Let&apos;s build something together
+    </p>
+
+    <div class="divider-shadow mb-12"></div>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <!-- Direct contact links -->
+      <div class="reveal reveal-delay-2 space-y-4">
+        <p class="meta-shadow mb-5 border-b border-glass-border pb-2.5">
+          Direct Contact
+        </p>
+
+        {
+          directLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-3 py-2"
+              >
+                <Icon
+                  size={14}
+                  class="text-text-muted transition-colors duration-500 group-hover:text-accent-violet"
+                />
+                <span class="text-sm text-text-secondary transition-colors duration-500 group-hover:text-text-primary">
+                  {link.label}
+                </span>
+              </a>
+            );
+          })
+        }
+      </div>
+
+      <!-- Availability + one-click copy -->
+      <div class="reveal reveal-delay-3 space-y-4">
+        <p class="meta-shadow mb-5 border-b border-glass-border pb-2.5">
+          Availability
+        </p>
+
+        <p class="text-[0.8125rem] leading-[1.7] text-text-secondary">
+          Open to full-time positions and contract work. Based in India, flexible
+          with remote timezones. Usually respond within 24 hours.
+        </p>
+
+        <button
+          type="button"
+          id="copy-email"
+          data-email={email}
+          class="hover-glow-sm inline-flex w-full cursor-pointer items-center justify-center gap-2 border border-glass-border bg-transparent px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] text-text-secondary transition-all duration-700 hover:border-accent-violet/25 hover:text-text-primary sm:w-auto"
+          aria-label={`Copy email address ${email}`}
+        >
+          <Copy size={14} />
+          <span id="copy-email-label" data-original="Copy Email">Copy Email</span>
+        </button>
+
+        <p class="text-[0.6875rem] tracking-[0.1em] text-text-muted">
+          {email}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const copyButton = document.getElementById("copy-email");
+  const copyLabel = document.getElementById("copy-email-label");
+
+  copyButton?.addEventListener("click", async () => {
+    const email = copyButton.getAttribute("data-email") ?? "";
+
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      const field = document.createElement("textarea");
+      field.value = email;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.appendChild(field);
+      field.select();
+      document.execCommand("copy");
+      document.body.removeChild(field);
+    }
+
+    if (copyLabel) {
+      copyLabel.textContent = "Copied ✓";
+      window.setTimeout(() => {
+        copyLabel.textContent = copyLabel.dataset.original ?? "Copy Email";
+      }, 2000);
+    }
+  });
+</script>

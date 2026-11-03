@@ -1,7 +1,4 @@
-"use client";
-
-import { useEffect, useRef, useCallback } from "react";
-import { useTheme } from "next-themes";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /* ── Particle type ── */
 interface Particle {
@@ -20,6 +17,12 @@ interface Particle {
 
 const SNOW_COUNT = 60;
 const SAKURA_COUNT = 40;
+
+/* ── Theme source of truth: the `dark` class on <html> ── */
+function readIsDark(): boolean {
+  if (typeof document === "undefined") return true;
+  return document.documentElement.classList.contains("dark");
+}
 
 /* ── Snowflake factory ── */
 function createSnowflake(w: number, h: number, startAbove = true): Particle {
@@ -125,15 +128,27 @@ function drawPetal(ctx: CanvasRenderingContext2D, p: Particle) {
  * Snowfall — Atmospheric particle effect.
  * Dark mode → cold white snow.
  * Light mode → soft pastel sakura petals.
+ *
+ * Theme is observed directly from <html class="dark"> via MutationObserver,
+ * replacing the previous next-themes dependency.
  */
 export default function Snowfall() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const requestRef = useRef<number | undefined>(undefined);
   const prevThemeRef = useRef<string | undefined>(undefined);
-  const { resolvedTheme } = useTheme();
+  const [isDark, setIsDark] = useState<boolean>(readIsDark);
 
-  const isDark = resolvedTheme === "dark";
+  useEffect(() => {
+    const root = document.documentElement;
+    const sync = () => setIsDark(root.classList.contains("dark"));
+
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+
+    return () => observer.disconnect();
+  }, []);
 
   const createParticle = useCallback(
     (w: number, h: number, startAbove = true): Particle => {
@@ -145,7 +160,8 @@ export default function Snowfall() {
   const drawParticle = useCallback(
     (ctx: CanvasRenderingContext2D, p: Particle) => {
       if (p.opacity <= 0.005) return;
-      isDark ? drawSnowflake(ctx, p) : drawPetal(ctx, p);
+      if (isDark) drawSnowflake(ctx, p);
+      else drawPetal(ctx, p);
     },
     [isDark]
   );
@@ -172,7 +188,7 @@ export default function Snowfall() {
     const count = isDark ? SNOW_COUNT : SAKURA_COUNT;
 
     // On theme change, fade out old particles and spawn new ones
-    if (prevThemeRef.current !== undefined && prevThemeRef.current !== resolvedTheme) {
+    if (prevThemeRef.current !== undefined && prevThemeRef.current !== (isDark ? "dark" : "light")) {
       // Fade out existing particles
       particlesRef.current.forEach((p) => {
         p.targetOpacity = 0;
@@ -189,7 +205,7 @@ export default function Snowfall() {
         createParticle(window.innerWidth, window.innerHeight, true)
       );
     }
-    prevThemeRef.current = resolvedTheme;
+    prevThemeRef.current = isDark ? "dark" : "light";
 
     const animate = () => {
       const w = window.innerWidth;
@@ -229,7 +245,7 @@ export default function Snowfall() {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
       window.removeEventListener("resize", resize);
     };
-  }, [resolvedTheme, isDark, createParticle, drawParticle]);
+  }, [isDark, createParticle, drawParticle]);
 
   return (
     <canvas

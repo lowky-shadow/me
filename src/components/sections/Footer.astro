@@ -1,0 +1,15 @@
+---
+import { Heart } from "lucide-react";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-glass-border py-8 text-center">
+  <div class="mx-auto max-w-6xl px-6">
+    <p class="flex items-center justify-center gap-1.5 text-sm text-text-muted">
+      &copy; {year} Shadow. Built with
+      <Heart size={14} class="inline text-sakura-400" />
+      using Astro &amp; TailwindCSS
+    </p>
+  </div>
+</footer>

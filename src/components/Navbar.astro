@@ -1,0 +1,183 @@
+---
+import { Menu, X, Moon, Sun, Monitor } from "lucide-react";
+
+const links = [
+  { label: "Chronicle", href: "#chronicle" },
+  { label: "Operations", href: "#operations" },
+  { label: "Arsenal", href: "#arsenal" },
+  { label: "Contact", href: "#contact" },
+];
+---
+
+<nav
+  id="navbar"
+  class="fixed inset-x-0 top-0 z-50 bg-transparent transition-all duration-700"
+>
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <a
+      href="#hero"
+      class="heading-shadow text-sm tracking-[0.3em] text-text-primary"
+    >
+      Shadow
+    </a>
+
+    <div class="flex items-center gap-4 md:gap-8">
+      <!-- Desktop links -->
+      <div class="hidden items-center gap-8 md:flex">
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              class="text-[11px] uppercase tracking-[0.2em] text-text-muted transition-colors duration-500 hover:text-text-primary"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Theme toggle: dark → light → system -->
+      <button
+        type="button"
+        data-theme-toggle
+        class="cursor-pointer text-text-muted transition-colors duration-300 hover:text-text-primary"
+        aria-label="Current theme: dark. Click to switch."
+        title="Theme: dark"
+      >
+        <span data-theme-icon="dark" class="block">
+          <Moon size={16} strokeWidth={1.5} />
+        </span>
+        <span data-theme-icon="light" class="hidden">
+          <Sun size={16} strokeWidth={1.5} />
+        </span>
+        <span data-theme-icon="system" class="hidden">
+          <Monitor size={16} strokeWidth={1.5} />
+        </span>
+      </button>
+
+      <!-- Mobile menu toggle -->
+      <button
+        id="menu-toggle"
+        type="button"
+        class="text-text-muted md:hidden"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span data-menu-icon="closed" class="block">
+          <Menu size={18} />
+        </span>
+        <span data-menu-icon="open" class="hidden">
+          <X size={18} />
+        </span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div
+  id="mobile-menu"
+  class="fixed inset-x-0 top-14 z-40 hidden border-b border-glass-border bg-shadow-950/95 p-6 backdrop-blur-xl md:hidden"
+>
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        data-mobile-link
+        class="block py-3 text-xs uppercase tracking-[0.2em] text-text-muted transition-colors duration-500 hover:text-text-primary"
+      >
+        {link.label}
+      </a>
+    ))
+  }
+</div>
+
+<script>
+  const root = document.documentElement;
+  const modes = ["dark", "light", "system"] as const;
+  type Mode = (typeof modes)[number];
+
+  const nav = document.getElementById("navbar");
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const themeToggles = document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]");
+
+  function readMode(): Mode {
+    try {
+      const stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "system" || stored === "dark") {
+        return stored;
+      }
+    } catch {
+      /* ignore */
+    }
+    return "dark";
+  }
+
+  function applyTheme(mode: Mode, persist = false) {
+    if (persist) {
+      try {
+        localStorage.setItem("theme", mode);
+      } catch {
+        /* ignore */
+      }
+    }
+
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const dark = mode === "dark" || (mode === "system" && prefersDark);
+
+    root.classList.toggle("dark", dark);
+
+    themeToggles.forEach((toggle) => {
+      toggle
+        .querySelectorAll<HTMLElement>("[data-theme-icon]")
+        .forEach((icon) => icon.classList.toggle("hidden", icon.dataset.themeIcon !== mode));
+      toggle.setAttribute("title", `Theme: ${mode}`);
+      toggle.setAttribute("aria-label", `Current theme: ${mode}. Click to switch.`);
+    });
+  }
+
+  themeToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      root.classList.add("theme-transition");
+      window.setTimeout(() => root.classList.remove("theme-transition"), 500);
+
+      const index = modes.indexOf(readMode());
+      const next = modes[(index + 1) % modes.length];
+      applyTheme(next, true);
+    });
+  });
+
+  applyTheme(readMode());
+
+  // Navbar background on scroll
+  const onScroll = () => {
+    if (!nav) return;
+    const scrolled = window.scrollY > 30;
+    nav.classList.toggle("bg-shadow-950/80", scrolled);
+    nav.classList.toggle("backdrop-blur-xl", scrolled);
+    nav.classList.toggle("border-b", scrolled);
+    nav.classList.toggle("border-glass-border", scrolled);
+    nav.classList.toggle("bg-transparent", !scrolled);
+  };
+
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Mobile menu
+  function setMenuOpen(open: boolean) {
+    mobileMenu?.classList.toggle("hidden", !open);
+    menuToggle?.setAttribute("aria-expanded", String(open));
+    menuToggle
+      ?.querySelectorAll<HTMLElement>("[data-menu-icon]")
+      .forEach((icon) => icon.classList.toggle("hidden", icon.dataset.menuIcon !== (open ? "open" : "closed")));
+  }
+
+  menuToggle?.addEventListener("click", () => {
+    setMenuOpen(mobileMenu?.classList.contains("hidden") ?? true);
+  });
+
+  document.querySelectorAll("[data-mobile-link]").forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+</script>

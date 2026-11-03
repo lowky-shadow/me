@@ -1,0 +1,114 @@
+---
+interface SkillGroup {
+  label: string;
+  skills: string[];
+}
+
+const groups: SkillGroup[] = [
+  {
+    label: "Languages",
+    skills: ["TypeScript", "JavaScript", "Python", "SQL", "HTML/CSS", "Bash"],
+  },
+  {
+    label: "Frontend",
+    skills: [
+      "React",
+      "Next.js",
+      "TailwindCSS",
+      "Framer Motion",
+      "D3.js",
+      "Storybook",
+      "Responsive Design",
+      "Accessibility (a11y)",
+    ],
+  },
+  {
+    label: "Backend",
+    skills: [
+      "Node.js",
+      "Express",
+      "tRPC",
+      "GraphQL",
+      "REST APIs",
+      "WebSocket",
+      "Authentication (JWT/OAuth)",
+      "Rate Limiting",
+    ],
+  },
+  {
+    label: "Databases",
+    skills: [
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "Prisma ORM",
+      "Database Design",
+      "Migrations",
+    ],
+  },
+  {
+    label: "Infrastructure & Tools",
+    skills: [
+      "Docker",
+      "AWS (EC2, S3, Lambda)",
+      "Vercel",
+      "CI/CD (GitHub Actions)",
+      "Git",
+      "Linux/Unix",
+      "Nginx",
+      "Monitoring",
+    ],
+  },
+  {
+    label: "Practices",
+    skills: [
+      "Agile/Scrum",
+      "Code Review",
+      "Testing (Jest, Playwright)",
+      "Technical Writing",
+      "System Design",
+      "Performance Optimization",
+    ],
+  },
+];
+---
+
+<section id="arsenal" class="px-6 py-16 md:py-24">
+  <div class="mx-auto max-w-4xl">
+    <h2
+      class="heading-shadow reveal mb-2 text-center text-base tracking-[0.3em] text-text-primary md:text-lg"
+    >
+      Arsenal
+    </h2>
+    <p class="subtitle-shadow reveal reveal-delay-1 mb-12 text-center">
+      Technical skills &amp; tools I work with
+    </p>
+
+    <div class="divider-shadow mb-12"></div>
+
+    <div class="grid gap-10 md:grid-cols-2">
+      {
+        groups.map((group, index) => (
+          <div
+            class:list={[
+              "reveal",
+              `reveal-delay-${Math.min(index + 1, 10)}`,
+            ]}
+          >
+            <p class="meta-shadow mb-4 border-b border-glass-border pb-2.5">
+              {group.label}
+            </p>
+
+            <div class="flex flex-wrap gap-x-5 gap-y-2">
+              {group.skills.map((skill) => (
+                <span class="underline-hover cursor-default py-0.5 text-[0.9375rem] text-text-secondary transition-colors duration-500 hover:text-text-primary">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
